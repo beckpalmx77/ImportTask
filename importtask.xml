@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="importtask" default="all">
+  
+  
+  <property file="importtask.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.7" value="${jdk.home.1.7}/bin"/>
+  <path id="jdk.classpath.1.7">
+    <fileset dir="${jdk.home.1.7}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/access-bridge-32.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunmscapi.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxrt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.7}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.7}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.7"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.lib.classpath">
+    <pathelement location="${basedir}/lib/commons-beanutils.jar"/>
+    <pathelement location="${basedir}/lib/commons-codec-1.10.jar"/>
+    <pathelement location="${basedir}/lib/commons-codec-1.7.jar"/>
+    <pathelement location="${basedir}/lib/commons-collections-2.1.jar"/>
+    <pathelement location="${basedir}/lib/commons-collections-3.2.jar"/>
+    <pathelement location="${basedir}/lib/commons-digester-1.7.jar"/>
+    <pathelement location="${basedir}/lib/commons-fileupload-1.2.2.jar"/>
+    <pathelement location="${basedir}/lib/commons-fileupload-1.3.1.jar"/>
+    <pathelement location="${basedir}/lib/commons-io-1.3.2.jar"/>
+    <pathelement location="${basedir}/lib/commons-io-2.4.jar"/>
+    <pathelement location="${basedir}/lib/commons-logging.jar"/>
+    <pathelement location="${basedir}/lib/cordia-upc.jar"/>
+    <pathelement location="${basedir}/lib/cos.jar"/>
+    <pathelement location="${basedir}/lib/dom4j-1.6.1.jar"/>
+    <pathelement location="${basedir}/lib/fileupload.jar"/>
+    <pathelement location="${basedir}/lib/gnujaxp.jar"/>
+    <pathelement location="${basedir}/lib/groovy-all.jar"/>
+    <pathelement location="${basedir}/lib/gson-2.2.2.jar"/>
+    <pathelement location="${basedir}/lib/iText-2.1.2u.jar"/>
+    <pathelement location="${basedir}/lib/iText-2.1.5.jar"/>
+    <pathelement location="${basedir}/lib/iText-2.1.7.jar"/>
+    <pathelement location="${basedir}/lib/jasperreports-3.6.0.jar"/>
+    <pathelement location="${basedir}/lib/jasperreports-3.7.1.jar"/>
+    <pathelement location="${basedir}/lib/jasperreports-4.5.0.jar"/>
+    <pathelement location="${basedir}/lib/jasperreports-4.6.0.jar"/>
+    <pathelement location="${basedir}/lib/jasperreports-5.5.1.jar"/>
+    <pathelement location="${basedir}/lib/jasperreports-5.6.1.jar"/>
+    <pathelement location="${basedir}/lib/jasperreports-fonts-5.6.1.jar"/>
+    <pathelement location="${basedir}/lib/jasperreports-functions-5.6.1.jar"/>
+    <pathelement location="${basedir}/lib/jasperreports-javaflow-5.6.1.jar"/>
+    <pathelement location="${basedir}/lib/java-json.jar"/>
+    <pathelement location="${basedir}/lib/javax.servlet-3.0.jar"/>
+    <pathelement location="${basedir}/lib/javax.servlet.jar"/>
+    <pathelement location="${basedir}/lib/javax.ws.rs-api-2.0-javadoc.jar"/>
+    <pathelement location="${basedir}/lib/javax.ws.rs-api-2.0-sources.jar"/>
+    <pathelement location="${basedir}/lib/jcommon-1.0.17-junit.jar"/>
+    <pathelement location="${basedir}/lib/jcommon-1.0.17.jar"/>
+    <pathelement location="${basedir}/lib/jcommon-xml-1.0.17.jar"/>
+    <pathelement location="${basedir}/lib/jfreechart-1.0.14-experimental.jar"/>
+    <pathelement location="${basedir}/lib/jfreechart-1.0.14-swt.jar"/>
+    <pathelement location="${basedir}/lib/jfreechart-1.0.14.jar"/>
+    <pathelement location="${basedir}/lib/joda-time-2.2.jar"/>
+    <pathelement location="${basedir}/lib/jsf-api.jar"/>
+    <pathelement location="${basedir}/lib/json-simple-1.1.1.jar"/>
+    <pathelement location="${basedir}/lib/jthai-pdf-me.jar"/>
+    <pathelement location="${basedir}/lib/junit-4.10.jar"/>
+    <pathelement location="${basedir}/lib/junit-4.11.jar"/>
+    <pathelement location="${basedir}/lib/junit.jar"/>
+    <pathelement location="${basedir}/lib/jxl-2.6.jar"/>
+    <pathelement location="${basedir}/lib/log4j-1.2.17.jar"/>
+    <pathelement location="${basedir}/lib/log4j-api-2.0.2.jar"/>
+    <pathelement location="${basedir}/lib/log4j-core-2.0.2.jar"/>
+    <pathelement location="${basedir}/lib/mondrian-3.6.1.jar"/>
+    <pathelement location="${basedir}/lib/mongo-java-driver-2.9.3-javadoc.jar"/>
+    <pathelement location="${basedir}/lib/mongo-java-driver-2.9.3-sources.jar"/>
+    <pathelement location="${basedir}/lib/mongo-java-driver-2.9.3.jar"/>
+    <pathelement location="${basedir}/lib/mysql-connector-java-5.0.8-bin.jar"/>
+    <pathelement location="${basedir}/lib/mysql-connector-java-5.1.23-bin.jar"/>
+    <pathelement location="${basedir}/lib/mysql-connector-java-5.1.24-bin.jar"/>
+    <pathelement location="${basedir}/lib/mysql-connector-java-5.1.30-bin.jar"/>
+    <pathelement location="${basedir}/lib/org.json-20120521.jar"/>
+    <pathelement location="${basedir}/lib/poi-3.2-FINAL-20081019.jar"/>
+    <pathelement location="${basedir}/lib/poi-3.9.jar"/>
+    <pathelement location="${basedir}/lib/poi-ooxml-3.9.jar"/>
+    <pathelement location="${basedir}/lib/poi-ooxml-schemas-3.9.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-8.3-603.jdbc3.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-8.4-703.jdbc3.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-8.4-703.jdbc4.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-9.2-1002.jdbc3.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-9.2-1002.jdbc4.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-9.3-1101.jdbc3.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-9.3-1101.jdbc4.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-9.3-1101.jdbc41.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-9.3-1102.jdbc3.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-9.3-1102.jdbc4.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-9.3-1102.jdbc41.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-9.4-1201.jdbc4.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-9.4-1201.jdbc41.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-9.4-1202.jdbc4.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-9.4-1202.jdbc41.jar"/>
+    <pathelement location="${basedir}/lib/postgresql-9.4-1202.jdbc42.jar"/>
+    <pathelement location="${basedir}/lib/sapdbc.jar"/>
+    <pathelement location="${basedir}/lib/servlet.jar"/>
+    <pathelement location="${basedir}/lib/standard.jar"/>
+    <pathelement location="${basedir}/lib/stax-api-1.0.1.jar"/>
+    <pathelement location="${basedir}/lib/struts.jar"/>
+    <pathelement location="${basedir}/lib/swing-layout-1.0.4.jar"/>
+    <pathelement location="${basedir}/lib/swtgraphics2d.jar"/>
+    <pathelement location="${basedir}/lib/thaicut.jar"/>
+    <pathelement location="${basedir}/lib/uploadbean.jar"/>
+    <pathelement location="${basedir}/lib/xml-apis.jar"/>
+    <pathelement location="${basedir}/lib/xmlbeans-2.3.0.jar"/>
+  </path>
+  
+  
+  <!-- Global Libraries -->
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  <import file="${basedir}/module_importtask.xml"/>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.importtask" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.importtask" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.importtask:jar" value="${basedir}/out/artifacts/ImportTask_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.ImportTask.jar" value="${artifacts.temp.dir}/ImportTask.jar"/>
+  </target>
+  
+  <target name="artifact.importtask:jar" depends="init.artifacts, compile.module.importtask" description="Build &#39;ImportTask:jar&#39; artifact">
+    <property name="artifact.temp.output.importtask:jar" value="${artifacts.temp.dir}/ImportTask_jar"/>
+    <mkdir dir="${artifact.temp.output.importtask:jar}"/>
+    <jar destfile="${temp.jar.path.ImportTask.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${importtask.output.dir}"/>
+      <zipfileset src="${basedir}/lib/mysql-connector-java-5.1.24-bin.jar"/>
+      <zipfileset src="${basedir}/lib/mondrian-3.6.1.jar"/>
+      <zipfileset src="${basedir}/lib/javax.ws.rs-api-2.0-sources.jar"/>
+      <zipfileset src="${basedir}/lib/struts.jar"/>
+      <zipfileset src="${basedir}/lib/jasperreports-3.7.1.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-9.3-1101.jdbc4.jar"/>
+      <zipfileset src="${basedir}/lib/gnujaxp.jar"/>
+      <zipfileset src="${basedir}/lib/javax.servlet.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-9.4-1201.jdbc41.jar"/>
+      <zipfileset src="${basedir}/lib/javax.servlet-3.0.jar"/>
+      <zipfileset src="${basedir}/lib/java-json.jar"/>
+      <zipfileset src="${basedir}/lib/swing-layout-1.0.4.jar"/>
+      <zipfileset src="${basedir}/lib/commons-collections-3.2.jar"/>
+      <zipfileset src="${basedir}/lib/log4j-core-2.0.2.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-8.3-603.jdbc3.jar"/>
+      <zipfileset src="${basedir}/lib/mongo-java-driver-2.9.3.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-9.3-1102.jdbc3.jar"/>
+      <zipfileset src="${basedir}/lib/dom4j-1.6.1.jar"/>
+      <zipfileset src="${basedir}/lib/jxl-2.6.jar"/>
+      <zipfileset src="${basedir}/lib/groovy-all.jar"/>
+      <zipfileset src="${basedir}/lib/cos.jar"/>
+      <zipfileset src="${basedir}/lib/jasperreports-4.6.0.jar"/>
+      <zipfileset src="${basedir}/lib/org.json-20120521.jar"/>
+      <zipfileset src="${basedir}/lib/xmlbeans-2.3.0.jar"/>
+      <zipfileset src="${basedir}/lib/commons-beanutils.jar"/>
+      <zipfileset src="${basedir}/lib/jasperreports-functions-5.6.1.jar"/>
+      <zipfileset src="${basedir}/lib/mongo-java-driver-2.9.3-javadoc.jar"/>
+      <zipfileset src="${basedir}/lib/commons-fileupload-1.2.2.jar"/>
+      <zipfileset src="${basedir}/lib/mysql-connector-java-5.1.30-bin.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-9.3-1102.jdbc41.jar"/>
+      <zipfileset src="${basedir}/lib/json-simple-1.1.1.jar"/>
+      <zipfileset src="${basedir}/lib/junit-4.11.jar"/>
+      <zipfileset src="${basedir}/lib/mysql-connector-java-5.0.8-bin.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-9.3-1102.jdbc4.jar"/>
+      <zipfileset src="${basedir}/lib/commons-fileupload-1.3.1.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-9.2-1002.jdbc3.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-9.4-1202.jdbc42.jar"/>
+      <zipfileset src="${basedir}/lib/iText-2.1.5.jar"/>
+      <zipfileset src="${basedir}/lib/jcommon-1.0.17.jar"/>
+      <zipfileset src="${basedir}/lib/poi-3.9.jar"/>
+      <zipfileset src="${basedir}/lib/standard.jar"/>
+      <zipfileset src="${basedir}/lib/junit-4.10.jar"/>
+      <zipfileset src="${basedir}/lib/poi-3.2-FINAL-20081019.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-9.4-1202.jdbc4.jar"/>
+      <zipfileset src="${basedir}/lib/fileupload.jar"/>
+      <zipfileset src="${basedir}/lib/jasperreports-fonts-5.6.1.jar"/>
+      <zipfileset src="${basedir}/lib/jfreechart-1.0.14.jar"/>
+      <zipfileset src="${basedir}/lib/jthai-pdf-me.jar"/>
+      <zipfileset src="${basedir}/lib/cordia-upc.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-9.4-1202.jdbc41.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-9.2-1002.jdbc4.jar"/>
+      <zipfileset src="${basedir}/lib/jsf-api.jar"/>
+      <zipfileset src="${basedir}/lib/gson-2.2.2.jar"/>
+      <zipfileset src="${basedir}/lib/jasperreports-5.5.1.jar"/>
+      <zipfileset src="${basedir}/lib/mongo-java-driver-2.9.3-sources.jar"/>
+      <zipfileset src="${basedir}/lib/stax-api-1.0.1.jar"/>
+      <zipfileset src="${basedir}/lib/mysql-connector-java-5.1.23-bin.jar"/>
+      <zipfileset src="${basedir}/lib/commons-digester-1.7.jar"/>
+      <zipfileset src="${basedir}/lib/commons-codec-1.10.jar"/>
+      <zipfileset src="${basedir}/lib/jfreechart-1.0.14-swt.jar"/>
+      <zipfileset src="${basedir}/lib/uploadbean.jar"/>
+      <zipfileset src="${basedir}/lib/javax.ws.rs-api-2.0-javadoc.jar"/>
+      <zipfileset src="${basedir}/lib/commons-io-1.3.2.jar"/>
+      <zipfileset src="${basedir}/lib/log4j-1.2.17.jar"/>
+      <zipfileset src="${basedir}/lib/servlet.jar"/>
+      <zipfileset src="${basedir}/lib/jasperreports-3.6.0.jar"/>
+      <zipfileset src="${basedir}/lib/log4j-api-2.0.2.jar"/>
+      <zipfileset src="${basedir}/lib/jcommon-1.0.17-junit.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-8.4-703.jdbc4.jar"/>
+      <zipfileset src="${basedir}/lib/commons-io-2.4.jar"/>
+      <zipfileset src="${basedir}/lib/swtgraphics2d.jar"/>
+      <zipfileset src="${basedir}/lib/jfreechart-1.0.14-experimental.jar"/>
+      <zipfileset src="${basedir}/lib/poi-ooxml-schemas-3.9.jar"/>
+      <zipfileset src="${basedir}/lib/jasperreports-5.6.1.jar"/>
+      <zipfileset src="${basedir}/lib/poi-ooxml-3.9.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-8.4-703.jdbc3.jar"/>
+      <zipfileset src="${basedir}/lib/jcommon-xml-1.0.17.jar"/>
+      <zipfileset src="${basedir}/lib/sapdbc.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-9.3-1101.jdbc41.jar"/>
+      <zipfileset src="${basedir}/lib/iText-2.1.2u.jar"/>
+      <zipfileset src="${basedir}/lib/jasperreports-4.5.0.jar"/>
+      <zipfileset src="${basedir}/lib/iText-2.1.7.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-9.4-1201.jdbc4.jar"/>
+      <zipfileset src="${basedir}/lib/xml-apis.jar"/>
+      <zipfileset src="${basedir}/lib/postgresql-9.3-1101.jdbc3.jar"/>
+      <zipfileset src="${basedir}/lib/commons-codec-1.7.jar"/>
+      <zipfileset src="${basedir}/lib/jasperreports-javaflow-5.6.1.jar"/>
+      <zipfileset src="${basedir}/lib/junit.jar"/>
+      <zipfileset src="${basedir}/lib/commons-collections-2.1.jar"/>
+      <zipfileset src="${basedir}/lib/commons-logging.jar"/>
+      <zipfileset src="${basedir}/lib/joda-time-2.2.jar"/>
+      <zipfileset src="${basedir}/lib/thaicut.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.ImportTask.jar}" tofile="${artifact.temp.output.importtask:jar}/ImportTask.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.importtask:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.importtask:jar}"/>
+    <copy todir="${artifact.output.importtask:jar}">
+      <fileset dir="${artifact.temp.output.importtask:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

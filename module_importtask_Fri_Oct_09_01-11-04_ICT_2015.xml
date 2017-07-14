@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_importtask" default="compile.module.importtask">
+  <dirname property="module.importtask.basedir" file="/module_importtask.xml"/>
+  
+  <property name="module.jdk.home.importtask" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.importtask" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.importtask" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.importtask" value="-encoding UTF-8 -source 1.7 ${compiler.args}"/>
+  
+  <property name="importtask.output.dir" value="${module.importtask.basedir}/out/production/importtask"/>
+  <property name="importtask.testoutput.dir" value="${module.importtask.basedir}/out/test/importtask"/>
+  
+  <path id="importtask.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="importtask.module.production.classpath">
+    <path refid="${module.jdk.classpath.importtask}"/>
+    <path refid="library.lib1.classpath"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="importtask.runtime.production.module.classpath">
+    <pathelement location="${importtask.output.dir}"/>
+    <path refid="library.lib1.classpath"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="importtask.module.classpath">
+    <path refid="${module.jdk.classpath.importtask}"/>
+    <pathelement location="${importtask.output.dir}"/>
+    <path refid="library.lib1.classpath"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="importtask.runtime.module.classpath">
+    <pathelement location="${importtask.testoutput.dir}"/>
+    <pathelement location="${importtask.output.dir}"/>
+    <path refid="library.lib1.classpath"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.importtask">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.importtask">
+    <patternset refid="compiler.excluded"/>
+    <patternset refid="excluded.from.module.importtask"/>
+  </patternset>
+  
+  <path id="importtask.module.sourcepath">
+    <dirset dir="${module.importtask.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.importtask" depends="compile.module.importtask.production,compile.module.importtask.tests" description="Compile module importtask"/>
+  
+  <target name="compile.module.importtask.production" depends="register.custom.compilers" description="Compile module importtask; production classes">
+    <mkdir dir="${importtask.output.dir}"/>
+    <javac2 destdir="${importtask.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.importtask}/javac">
+      <compilerarg line="${compiler.args.importtask}"/>
+      <bootclasspath refid="importtask.module.bootclasspath"/>
+      <classpath refid="importtask.module.production.classpath"/>
+      <src refid="importtask.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.importtask"/>
+    </javac2>
+    
+    <copy todir="${importtask.output.dir}">
+      <fileset dir="${module.importtask.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.importtask"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.importtask.tests" depends="register.custom.compilers,compile.module.importtask.production" description="compile module importtask; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.importtask" description="cleanup module">
+    <delete dir="${importtask.output.dir}"/>
+    <delete dir="${importtask.testoutput.dir}"/>
+  </target>
+</project>
